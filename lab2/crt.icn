@@ -1,0 +1,125 @@
+################################################################################
+#
+#	File:     crt.icn
+#	Subject:  Prosty interfejs dla ekranu i klawiatury
+#	Author:   Marek Gajęcki
+#	Date:     23 września 2000
+#
+################################################################################
+
+# Text Attributes Preprocessor Definitions 
+
+$define NORMAL 0        # The Definition for NORMAL mode 
+$define BOLD 1          # The Definition for BOLD mode 
+$define BLINK 2         # The Definition for BLINK mode 
+$define REVERSE 3       # The Definition for REVERSE mode 
+
+# The Text Colour Preprocessor Definitions 
+
+$define BLACK 0         # The Definition for BLACK colour 
+$define RED 1           # The Definition for RED colour 
+$define GREEN 2         # The Definition for GREEN colour 
+$define BROWN 3         # The Definition for BROWN colour 
+$define BLUE 4          # The Definition for BLUE colour 
+$define MAGENTA 5       # The Definition for MAGENTA colour 
+$define CYAN 6          # The Definition for CYAN colour 
+$define WHITE 7         # The Definition for WHITE colour 
+$define DEFAULT 8       # The Definition for DEFAULT colour 
+
+################################################################################
+
+$define  __up         "\e[A"
+$define  __down       "\e[B"
+$define  __right      "\e[C"
+$define  __left       "\e[D"
+$define  __home       "\e[1~"
+$define  __del        "\e[3~"
+$define  __end        "\e[4~"
+$define  __bs         "\d"
+$define  __esc        "\e"
+$define  __enter      "\n"
+
+################################################################################
+
+global Attribute
+
+################################################################################
+# ClrScr() - The function to clear the screen.
+###############################################################################
+#
+
+procedure ClrScr()
+  writes("\033[2J")
+end
+
+################################################################################
+# GotoXY() - The function to position the cursor anywhere on the screen. 
+################################################################################
+
+procedure GotoXY(x,y)
+  writes("\033[",y,";",x,"H")
+end
+
+################################################################################
+# ClrEol() - Clear all the characters to the end of the current line.
+################################################################################
+
+procedure ClrEol()
+  writes("\033[2K")
+end
+
+################################################################################
+# NormVideo() - Set the Video Properties to Default.
+################################################################################
+
+procedure NormVideo()
+  writes("\033[0m")
+  Attribute:=0;
+end
+
+################################################################################
+# textattr() - A function to change the text attributes
+################################################################################
+
+procedure TextAttr( attr )    
+  case attr of
+  {
+          0:  Attribute:=0  # Normal Text 
+          1:  Attribute:=1  # Bold Text 
+          2:  Attribute:=5  # Blink Text 
+          3:  Attribute:=7  # Reverse Text 
+    default:  Attribute:=0  # Default Text Attributes 
+  }
+  writes("\033[0;",Attribute,"m");
+end
+
+################################################################################
+
+procedure TextColor( fg )
+  case fg of
+  {
+  	  0: fore:=30   # Black 			
+  	  1: fore:=31   # Red
+  	  2: fore:=32   # Green
+  	  3: fore:=33   # Brown
+  	  4: fore:=34   # Blue
+  	  5: fore:=35   # Magenta
+  	  6: fore:=36   # Cyan
+  	  7: fore:=37   # White
+  	  8: fore:=39   # Default Colour
+    default: fore:=39
+  }
+  writes("\033[0;",Attribute,";",40,";",fore,"m")
+end
+
+################################################################################
+
+procedure kbd()
+  local z
+
+  z:=getch()
+  while kbhit() do z||:=getch()
+  return z
+end
+
+################################################################################

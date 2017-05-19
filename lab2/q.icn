@@ -1,0 +1,101 @@
+$include "crt.icn"
+
+global zm
+global ukl
+
+procedure main()
+
+  zm := table(0)
+  ukl := []
+
+  uklad()
+  
+  every i:=1 to *ukl do {
+    s:=""
+    every j:=2 to *ukl[i] do s||:=ukl[i][j]||"," 
+    write(ukl[i][1],"=nand(",s[1:-1],")")
+  }
+
+  read()
+  ClrScr()
+  
+  repeat {
+    wejscia("abcd")
+    oblicz()
+    wyjscia("xyz")
+  }  
+  
+end
+
+procedure obl_nand(l)
+  zm[l[1]]:=0
+  every i:=2 to *l do
+    if zm[l[i]]=0 then { zm[l[1]]:=1; break }
+end
+
+procedure nand(c,b,a)
+  put(ukl,[c,a,b])
+end
+
+
+procedure wejscia(we)
+  initial {
+    GotoXY(10,8)
+    every i:=1 to *we do writes(right(we[i],2))
+    GotoXY(10,7)
+    every i:=1 to *we do writes(right(zm[we[i]],2))
+  }
+
+  if kbhit() then {
+    GotoXY(1,1)
+    z:=getch()
+    
+    zm[z]:=1-zm[z]
+    GotoXY(10,7)
+    every i:=1 to *we do writes(right(zm[we[i]],2))
+  }
+end
+
+procedure wyjscia(wyj)
+  static mem
+  initial {
+    mem:=""
+    GotoXY(10,3)
+    every i:=1 to *wyj do writes(right(wyj[i],2))
+  }
+  vec:=""
+  every i:=1 to *wyj do vec||:=right(zm[wyj[i]],2)
+  if mem~==vec then {
+    GotoXY(10,4)
+    writes(vec)
+  }
+  mem:=vec
+end
+
+procedure oblicz()
+    every obl_nand(!ukl)
+end    
+
+procedure var()
+  static i
+  initial i:=0
+  return "p"||(i+:=1)
+end
+
+
+procedure uklad()
+	nand("x","a","y")
+	nand("y","b","x")
+	xor("z","a","b")
+	xor("x","a","b")
+end
+
+procedure xor(x,a,b)
+	p1 := var()
+	p2 := var()
+	p3 := var()
+	nand(p3,a,b)
+	nand(p2,a,p3)
+	nand(p1,a,p3)
+	nand(x,p1,p2)
+end

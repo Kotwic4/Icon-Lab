@@ -1,0 +1,31 @@
+procedure main()
+	while write(onp(read(l)))
+end
+procedure onp(w)
+	while w?:= 2(="(",tab(bal(")")),pos(-1))
+	every p := bal(">",,,w)
+	if \p then return onp(w[1:p])||onp(w[p+1:0])||w[p]
+	every p := bal(!'|&',,,w)
+	if \p then return onp(w[1:p])||onp(w[p+1:0])||w[p]
+	if w[1]=="~" then return w[2:0] || "~"
+	return w;
+end
+
+procedura val(w,arg)
+	w:=map(w,cset(w)**&lcase,arg)
+	s:=[]
+	every el:=!w do
+		if el==!"01" then push(s,el)
+		else case el of {
+			"&" : push(s, iand(pop(s),pop(s)))
+			"|" : push(s, ior(pop(s),pop(s)))
+			">" : push(s, ior(pop(s),1-pop(s))
+			"~" : push(s, 1-pop(s))
+		}
+	return pop(s)
+end
+
+procedure gen(n)
+	if n=0 then suspend ""
+	else suspend !"01" | gen(n-1)
+end

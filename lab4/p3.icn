@@ -1,0 +1,55 @@
+procedure main()
+	while w:= read() do {
+		w:=onp(w)
+		write(w)
+		every v:=gen(*(w**&lcase))do
+			write(v,"  ",val(w,v))
+		if not (val(w,gen(*(w**&lcase)))=0) then write("tak")
+						  else write("nie")
+	}
+end
+
+procedure onp(w)
+	while w?:= 2(="(",tab(bal(")")),pos(-1))
+	every p := bal(">",,,w)
+	if \p then return onp(w[1:p])||onp(w[p+1:0])||w[p]
+	every p := bal(!'|&',,,w)
+	if \p then return onp(w[1:p])||onp(w[p+1:0])||w[p]
+	if w[1]=="~" then return w[2:0] || "~"
+	return w;
+end
+
+procedure val(w,arg)
+	w:=map(w,cset(w)**&lcase,arg)
+	s:=[]
+	every el:=!w do
+		if el==!"01" then push(s,el)
+		else case el of {
+			"&" : push(s, iand(pop(s),pop(s)))
+			"|" : push(s, ior(pop(s),pop(s)))
+			">" : push(s, ior(pop(s),1-pop(s)))
+			"~" : push(s, 1-pop(s))
+		}
+	return pop(s)
+end
+
+procedure gen(n)
+	if n=0 then suspend ""
+	else suspend !"01" || gen(n-1)
+end
+
+procedure w()
+	suspend s() | s()|| ="|" || w()
+end
+
+procedure s()
+	suspend c() | c()|| ="&" || s()
+end
+
+procedure c()
+	suspend i() | i()|| =">" || c()
+end
+
+procedure i()
+	suspend =!&lcase | ="("||w()|| =")"
+end

@@ -1,0 +1,21 @@
+procedure main()
+	while e:=read() do
+	if e?{w()&pos(0)} then write("ok") 
+	else write("error")
+end
+
+procedure w()
+	suspend s() | s()|| ="|" || w()
+end
+
+procedure s()
+	suspend c() | c()|| ="&" || s()
+end
+
+procedure c()
+	suspend i() | i()|| =">" || c()
+end
+
+procedure i()
+	suspend =!&lcase | ="("||w()|| =")"
+end

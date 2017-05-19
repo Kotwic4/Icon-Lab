@@ -1,0 +1,45 @@
+procedure main()
+	l:= &lcase
+	every x := var(l,13) do 
+		write(x)
+end
+
+procedure print(x)
+	case type(x) of {
+		"list": print_list(x)
+	}
+end
+
+procedure print_list(l)
+	every writes(!l," "); write()
+end
+
+procedure gen(n)
+	#if n = 0 then suspend "" else
+	#suspend! "01" || gen(n-1)
+	suspend if n = 0 then "" else !"01"||gen(n-1)
+end
+
+procedure permutation(s)
+	#if *s=0 then suspend ""
+	#else{
+		#every x:= permutation(s[2:0]) do
+		#	every i:=1 to *s do
+		#		suspend x[1:i] || s[1] || x[i:0]
+		#suspend (x:= permutation(s[2:0]), i:=1 to *s,x[1:i] || s[1] || x[i:0])
+	#}
+	suspend if *s=0 then "" else (x:= permutation(s[2:0]),i:=1 to *s,x[1:i] || s[1] || x[i:0])
+end
+
+procedure permutation_list(s)
+	suspend if *s=0 then [] 
+	else (x:= permutation_list(s[2:0]),i:=1 to *s,x[1:i] ||| [s[1]] ||| x[i:0])
+end
+
+procedure komb(s,k)
+	suspend  if(k > *s) then "" else if(k = *s) then s else komb(s[2:0],k) | s[1]||komb(s[2:0],k-1)
+end
+
+procedure var(s,k)
+	suspend permutation(komb(s,k))
+end

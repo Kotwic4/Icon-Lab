@@ -1,0 +1,29 @@
+procedure main()
+	l:= set(["ab","ba",7])
+	every x:= subset(l) do
+		print(x)
+end
+
+procedure print(x)
+	case type(x) of {
+		"list": print_list(x)
+		"set": print_set(x)
+	}
+end
+
+procedure print_list(l)
+	every writes(!l," "); write()
+end
+
+procedure print_set(z)
+	writes("(");every writes(!z," "); write(")")
+end
+
+procedure subset(z)
+	if *z=0 then suspend z
+	else{
+		delete(z,x:=!z)
+		every y:= subset(z) do
+			suspend y | set([x])++y
+	}
+end

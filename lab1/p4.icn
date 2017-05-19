@@ -1,0 +1,27 @@
+procedure main()
+	#l:=[]
+	#l2:=[2,3,5,"siedem"]
+	#l3:=[write,read]
+	#l3[1]("hello")
+	#every i:= 1 to *l2 do write(l2[i])
+	#every write(l2[i:= 1 to *l2])
+	#every writes(!l2," "); write()
+	l4:=[7,25,11,3,13]
+	l4:=gs(l4)
+	every writes(!l4," "); write()
+end
+
+procedure gs(l)
+	if *l = 0 then return l
+	x:=get(l)
+	l1:=[]
+	l2:=[]
+	l3:=[]
+	put(l2,x)
+	while y:=get(l) do{
+		if y < x then put(l1,y)
+		else if y > x then put(l3,y)
+		else put(l2,y)
+	}
+	return gs(l1) ||| l2 ||| gs(l3)
+end

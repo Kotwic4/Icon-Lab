@@ -1,0 +1,12 @@
+procedure main()
+	#write("hello")
+	#write(&version)
+	#write(&clock)
+	#write(&pi)
+	#write(&date)
+	#write(&dateline)
+	#write(&time)
+	#write(&host)
+	#repeat write(&time)
+	every write(&features)
+end

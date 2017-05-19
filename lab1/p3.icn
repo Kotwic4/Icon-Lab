@@ -1,0 +1,7 @@
+procedure main()
+	&random:=map(&clock,":","0")
+	s:=string(&lcase)
+	write(s)
+	every !s:=:?s
+	write(s)
+end

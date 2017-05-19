@@ -1,0 +1,10 @@
+procedure main()
+	while w:= read() do {
+		#write(w)
+		#if find("do",w) then write(w)
+		#if upto('do',w) then write(w)
+		#write(map(w,"abc","ABC"))
+		#write(map(w,&lcase,&ucase))
+		#write(*'dodo')
+	}
+end

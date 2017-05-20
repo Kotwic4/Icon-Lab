@@ -1,2 +1,6 @@
 # Windows Icon exe
 *.icx
+
+# Files from compling icon files with -c
+*.u1
+*.u2

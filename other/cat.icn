@@ -1,0 +1,5 @@
+# cat in Icon
+
+procedure main()
+  while write(read())
+end

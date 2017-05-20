@@ -1,0 +1,6 @@
+link nwd
+
+procedure main()
+  z:=nwd(24,32)
+  write(z)
+end

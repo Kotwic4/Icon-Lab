@@ -1,0 +1,13 @@
+# Prime numbers generator in Icon
+
+procedure main()
+  l:=[]
+  n:=1
+  repeat{
+    n:=n+1
+    if not(n%!l=0) then{
+      put(l,n)
+      write(n)
+    }
+  }
+end

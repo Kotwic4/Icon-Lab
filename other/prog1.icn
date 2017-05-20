@@ -1,0 +1,9 @@
+# Example of how to link code in Icon
+# Use icon -c on programs you want to link
+
+link nwd
+
+procedure main()
+  z:=nwd(24,32)
+  write(z)
+end

@@ -1,3 +1,5 @@
+# NWD in icon
+
 procedure nwd(x,y)
   while x~=y do
     if x>y then x:=x-y

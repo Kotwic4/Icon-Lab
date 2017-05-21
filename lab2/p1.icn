@@ -1,3 +1,5 @@
+# QUINE - MC CLUSKEY Method
+
 procedure main()
 	s := set()
 	while insert(s,read())

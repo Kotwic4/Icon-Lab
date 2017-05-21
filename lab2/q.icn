@@ -9,22 +9,22 @@ procedure main()
   ukl := []
 
   uklad()
-  
+
   every i:=1 to *ukl do {
     s:=""
-    every j:=2 to *ukl[i] do s||:=ukl[i][j]||"," 
+    every j:=2 to *ukl[i] do s||:=ukl[i][j]||","
     write(ukl[i][1],"=nand(",s[1:-1],")")
   }
 
   read()
   ClrScr()
-  
+
   repeat {
     wejscia("abcd")
     oblicz()
     wyjscia("xyz")
-  }  
-  
+  }
+
 end
 
 procedure obl_nand(l)
@@ -49,7 +49,7 @@ procedure wejscia(we)
   if kbhit() then {
     GotoXY(1,1)
     z:=getch()
-    
+
     zm[z]:=1-zm[z]
     GotoXY(10,7)
     every i:=1 to *we do writes(right(zm[we[i]],2))
@@ -74,7 +74,7 @@ end
 
 procedure oblicz()
     every obl_nand(!ukl)
-end    
+end
 
 procedure var()
   static i

@@ -1,0 +1,9 @@
+# Find words in input and create dictionary
+
+procedure main()
+  words:=set()
+  while line:=read() do
+    line ? while tab(upto(&letters)) do
+      insert(words, tab(many(&letters)))
+  every write(!words)
+end

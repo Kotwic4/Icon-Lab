@@ -1,0 +1,22 @@
+procedure main()
+  t := table(0)
+  t["jeden"] := 2
+  t["dwa"] +:= 1
+  print(sort(t,1),'\n')
+  print(sort(t,2),'\n')
+end
+
+procedure print(x,tail)
+	case type(x) of {
+		"list": print_list(x)
+		"set": print_set(x)
+    default : writes(x)
+	}
+  if tail then writes (tail)
+end
+
+procedure print_list(l)
+  writes("[")
+	every print(!l,",")
+  writes("]")
+end
